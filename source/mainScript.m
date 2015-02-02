@@ -41,7 +41,15 @@ for i = 1:numOfFrames
     grayDecodedFrames(:, :, i) = grayFrame;
 end
 
-decodedFrames = grayDecodedFrames;
+% decodedFrames = grayDecodedFrames;
+
+% Background substraction - currently in progress.
+
+% Create MHI from frames.
+
+% mei = extractMEI(decodedFrames, numOfFrames):
+
+% mhi = extractMHI(decodedFrames, numOfFrames);
 
 
 
