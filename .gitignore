@@ -44,7 +44,7 @@ Temporary Items
 .apdisk
 
 # Matlab compiled files?
-.asv
+*.asv
 
 # Data
 data
