@@ -38,7 +38,8 @@ decodedFrames = grayDecodedFrames;
 binaryFrames = createBinary(decodedFrames, height, width, numOfFrames);
 
 % Create MHI.
-% mhi = extractMHI(decodedFrames, binaryFrames, numOfFrames);
+mhi = extractMHI(binaryFrames, height, width, numOfFrames);
+figure, imshow(mhi);
 
 
 
