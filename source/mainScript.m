@@ -20,20 +20,6 @@ path = 'person01_boxing_d1_uncomp.avi';
 % TEST - Print out number of frames.
 numOfFrames
 
-% TEST - Show a couple of frames
-%{
-firstFrame = decodedFrames(:, :, :, 1);
-secondFrame = decodedFrames(:, :, :, 10);
-
-firstFrameGray = rgb2gray(firstFrame);
-secondFrameGray = rgb2gray(secondFrame);
-
-imshow(firstFrame);
-figure, imshow(firstFrameGray);
-figure, imshow(secondFrame);
-figure, imshow(secondFrameGray);
-%}
-
 % Transform frames into greyscale (in case it hasn't been done.
 grayDecodedFrames = cast(zeros(height, width, numOfFrames), 'uint8');
 
@@ -48,31 +34,10 @@ end
 
 decodedFrames = grayDecodedFrames;
 
-% Background substraction - currently in progress.
+% Create matrix of binary images (motion energy image or bw).
+binaryFrames = createBinary(decodedFrames, height, width, numOfFrames);
 
-% Create MHI from frames.
-
-binaryFrames = zeros(height, width, numOfFrames);
-
-for i = 1:numOfFrames
-    currentFrame = decodedFrames(:, :, i);
-    level = graythresh(currentFrame);
-    bwImage = im2bw(currentFrame, level);
-    binaryFrames(:, :, i) = bwImage(:, :);
-end
-
-% Test thresholding.
-for i = 1:5
-    % figure, imshow([decodedFrames(:, :, i), binaryFrames(:, :, i)]);
-    % A = [decodedFrames(:, :, i); binaryFrames(:, :, i)];
-    % figure, imshow(A);
-    % figure, imshow(decodedFrames(:, :, i));
-    % figure, imshow(binaryFrames(:, :, i));
-    figure,
-    subplot(1, 2, 1), imshow(decodedFrames(:, :, i)),
-    subplot(1, 2, 2), imshow(binaryFrames(:, :, i));
-end
-
+% Create MHI.
 % mhi = extractMHI(decodedFrames, binaryFrames, numOfFrames);
 
 
