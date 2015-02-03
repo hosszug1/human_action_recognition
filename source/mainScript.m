@@ -8,11 +8,14 @@
     % Step 3-2: Combine histogram + haar wavelet features.
 % Step 4: Classification.
 
+% Close all figures.
+close all;
+
 % Temporary testing.
 path = 'person01_boxing_d1_uncomp.avi';
 
 % Extract frames from video.
-[decodedFrames, numOfFrames, width, height] = extractFrames(path);
+[decodedFrames, numOfFrames, height, width] = extractFrames(path);
 
 % TEST - Print out number of frames.
 numOfFrames
@@ -32,24 +35,45 @@ figure, imshow(secondFrameGray);
 %}
 
 % Transform frames into greyscale (in case it hasn't been done.
-grayDecodedFrames = zeros(width, height, numOfFrames);
+grayDecodedFrames = cast(zeros(height, width, numOfFrames), 'uint8');
 
 for i = 1:numOfFrames
     currentFrame = decodedFrames(:, :, :, i);
     % Convert to grayscale.
+    % imshow(currentFrame);
     grayFrame = rgb2gray(currentFrame);
-    grayDecodedFrames(:, :, i) = grayFrame;
+    % figure, imshow(grayFrame);
+    grayDecodedFrames(:, :, i) = grayFrame(:, :);
 end
 
-% decodedFrames = grayDecodedFrames;
+decodedFrames = grayDecodedFrames;
 
 % Background substraction - currently in progress.
 
 % Create MHI from frames.
 
-% mei = extractMEI(decodedFrames, numOfFrames):
+binaryFrames = zeros(height, width, numOfFrames);
 
-% mhi = extractMHI(decodedFrames, numOfFrames);
+for i = 1:numOfFrames
+    currentFrame = decodedFrames(:, :, i);
+    level = graythresh(currentFrame);
+    bwImage = im2bw(currentFrame, level);
+    binaryFrames(:, :, i) = bwImage(:, :);
+end
+
+% Test thresholding.
+for i = 1:5
+    % figure, imshow([decodedFrames(:, :, i), binaryFrames(:, :, i)]);
+    % A = [decodedFrames(:, :, i); binaryFrames(:, :, i)];
+    % figure, imshow(A);
+    % figure, imshow(decodedFrames(:, :, i));
+    % figure, imshow(binaryFrames(:, :, i));
+    figure,
+    subplot(1, 2, 1), imshow(decodedFrames(:, :, i)),
+    subplot(1, 2, 2), imshow(binaryFrames(:, :, i));
+end
+
+% mhi = extractMHI(decodedFrames, binaryFrames, numOfFrames);
 
 
 
