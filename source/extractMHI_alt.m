@@ -1,4 +1,4 @@
-function resultingMHI = extractMHI(binaryFrames, height, width, numOfFrames)
+function resultingMHI = extractMHI_alt(binaryFrames, height, width, numOfFrames)
 %EXTRACTMHI Summary of this function goes here
 %   Detailed explanation goes here
 
@@ -18,7 +18,7 @@ for x = 1:height
         % fprintf('y = %d\n', y);
         % Set the recursion limit to the number of frames.
         % set(0, 'RecursionLimit', numOfFrames + 2)
-        resultingMHI(x, y) = calculateH(x, y, numOfFrames, binaryFrames, tau, delta);
+        resultingMHI(x, y) = calculateH_alt(x, y, numOfFrames, binaryFrames, tau, delta);
     end
 end
 
@@ -28,15 +28,14 @@ end
 
 %%% THE UPDATE FUNCTION %%%
 %%% Use something else instead, but same principle, return 1 or 0.
-% Motion Energy Image value (binary).
-function hValue = calculateH(x, y, t, binaryFrames, tau, delta)
+function hValue = calculateH_alt(x, y, t, binaryFrames, tau, delta)
 
-if (t <= 1)
+if (tau <= 10)
     hValue = 0;
 elseif (binaryFrames(x, y, t) == 1)
     hValue = tau;
 else
-    hValue = max(0, calculateH(x, y, t-1, binaryFrames, tau, delta)-delta);
+    hValue = calculateH_alt(x, y, t-1, binaryFrames, tau - delta, delta);
 end
 
 end

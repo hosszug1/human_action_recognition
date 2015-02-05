@@ -12,7 +12,7 @@
 close all;
 
 % Temporary testing.
-path = 'person01_boxing_d1_uncomp.avi';
+path = 'person01_handwaving_d1_uncomp.avi';
 
 % Extract frames from video.
 [decodedFrames, numOfFrames, height, width] = extractFrames(path);
@@ -37,11 +37,36 @@ decodedFrames = grayDecodedFrames;
 % Create matrix of binary images (motion energy image or bw).
 binaryFrames = createBinary(decodedFrames, height, width, numOfFrames);
 
-% Create MHI.
-mhi = extractMHI(binaryFrames, height, width, numOfFrames);
-figure, imshow(mhi);
+% TEST - thresholding.
+for i = 1:5
+    % figure, imshow([decodedFrames(:, :, i), binaryFrames(:, :, i)]);
+    % A = [decodedFrames(:, :, i); binaryFrames(:, :, i)];
+    % figure, imshow(A);
+    % figure, imshow(decodedFrames(:, :, i));
+    % figure, imshow(binaryFrames(:, :, i));
+    figure,
+    subplot(1, 2, 1), imshow(decodedFrames(:, :, i)),
+    subplot(1, 2, 2), imshow(binaryFrames(:, :, i));
+end
 
+% Create MHI - currently testing 2 methods.
 
+% Reset time counter.
+tic;
+mhi1 = extractMHI(binaryFrames, height, width, numOfFrames);
+% Time spent creating MHI using first method.
+TimeSpent1 = toc
+
+% Reset time counter.
+tic;
+mhi2 = extractMHI_alt(binaryFrames, height, width, numOfFrames);
+% Time spent creating MHI using second method.
+TimeSpent2 = toc
+
+% Show the 2 mhis in the same figure.
+figure,
+subplot(1, 2, 1), imshow(mhi1),
+subplot(1, 2, 2), imshow(mhi2);
 
 
 
