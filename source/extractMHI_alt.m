@@ -8,7 +8,7 @@ resultingMHI = cast(zeros(height, width), 'uint8');
 % Temporal extent of the movement.
 tau = 255;
 % Decay parameter.
-delta = 15;
+delta = 10;
 % Treshold for the binerized image.
 % ksi = 0;
 
