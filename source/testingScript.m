@@ -1,4 +1,9 @@
 %%% Main script for automatic human action recognition
+
+% Global sort of parameters. Change to tweak testing script.
+% Folder for getting videos.
+INPUT_FOLDER = 'human_action_recognition\data\handwaving';
+
 % Step 1: Read frames from video file.
 % Step 2: Background substraction.
 % Step 3: Feature extraction. 
@@ -11,69 +16,9 @@
 % Close all figures.
 close all;
 
-% Temporary testing.
-path = 'person01_handwaving_d1_uncomp.avi';
+% Read the videos from the folder.
+videoStructs = dir(INPUT_FOLDER);
 
-% Extract frames from video.
-[decodedFrames, numOfFrames, height, width] = extractFrames(path);
-
-% Transform frames into greyscale (in case it hasn't been done.
-grayDecodedFrames = cast(zeros(height, width, numOfFrames), 'uint8');
-
-for i = 1:numOfFrames
-    currentFrame = decodedFrames(:, :, :, i);
-    % Convert to grayscale.
-    % imshow(currentFrame);
-    grayFrame = rgb2gray(currentFrame);
-    % figure, imshow(grayFrame);
-    grayDecodedFrames(:, :, i) = grayFrame(:, :);
+for i = 3:20
+    classifyVideo(videoStructs(i).name)
 end
-
-decodedFrames = grayDecodedFrames;
-
-% Create matrix of binary images (motion energy image or bw).
-binaryFrames = createBinary(decodedFrames, height, width, numOfFrames, 1);
-% binaryFrames = createBinary(decodedFrames, height, width, numOfFrames, 1);
-
-% TEST - thresholding.
-for i = 1:5
-    % figure, imshow([decodedFrames(:, :, i), binaryFrames(:, :, i)]);
-    % A = [decodedFrames(:, :, i); binaryFrames(:, :, i)];
-    % figure, imshow(A);
-    % figure, imshow(decodedFrames(:, :, i));
-    % figure, imshow(binaryFrames(:, :, i));
-    figure,
-    subplot(1, 2, 1), imshow(decodedFrames(:, :, i)),
-    subplot(1, 2, 2), imshow(binaryFrames(:, :, i));
-end
-
-% Create MHI - currently testing 2 methods.
-
-% Create mhi using default method.
-tic;
-mhi1 = extractMHI_alt(binaryFrames, height, width, numOfFrames);
-% Time spent creating MHI using first method.
-timeSpentOnMHI = toc;
-% Show the result.
-figure, imshow(mhi1);
-
-% Reset time counter and create mhi using secondary method.
-%{
-tic;
-mhi2 = extractMHI(binaryFrames, height, width, numOfFrames);
-% Time spent creating MHI using second method.
-TimeSpent2 = toc;
-% Show both mhis.
-subplot(1, 2, 1), imshow(mhi1),
-subplot(1, 2, 2), imshow(mhi2);
-%}
-
-
-
-
-
-
-
-
-
-

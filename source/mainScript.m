@@ -1,61 +1,46 @@
 %%% Main script for automatic human action recognition
-% Step 1: Read frames from video file.
-% Step 2: Background substraction.
-% Step 3: Feature extraction. 
-    % Step 3-1: Motion History Image (MHI).
-        % Step 3-1-1: Histogram of the MHI.
-        % Step 3-1-2: Haar Wavelet transform of the MHI.
-    % Step 3-2: Combine histogram + haar wavelet features.
-% Step 4: Classification.
 
-% Close all figures.
-close all;
+% Global sort of parameters. Change to tweak testing script.
+% Folder for getting videos.
+INPUT_FOLDER = 'human_action_recognition\data\';
+BOXING = 1;
+HANDCLAPPING = 2;
+HANDWAVING = 3;
+JOGGING = 4;
+RUNNING = 5;
+WALKING = 6;
 
-% Temporary testing.
-path = 'person01_handwaving_d2_uncomp.avi';
+classDict = containers.Map;
+classDict('boxing') = BOXING;
+classDict('handclapping') = HANDCLAPPING;
+classDict('handwaving') = HANDWAVING;
 
-% Extract frames from video.
-[decodedFrames, numOfFrames, height, width] = extractFrames(path);
+% Get each subfolder (will represent a class each).
+subfolders = dir(INPUT_FOLDER);
+trainingFiles = [];
+trainingLabels = [];
+testingFiles = [];
+x = 0;
 
-% TEST - Print out number of frames.
-numOfFrames
-
-% Transform frames into greyscale (in case it hasn't been done.
-grayDecodedFrames = cast(zeros(height, width, numOfFrames), 'uint8');
-
-for i = 1:numOfFrames
-    currentFrame = decodedFrames(:, :, :, i);
-    % Convert to grayscale.
-    % imshow(currentFrame);
-    grayFrame = rgb2gray(currentFrame);
-    % figure, imshow(grayFrame);
-    grayDecodedFrames(:, :, i) = grayFrame(:, :);
+for i=3:length(subfolders)
+    if (subfolders(i).isdir)
+        files = dir(strcat(INPUT_FOLDER, subfolders(i).name));
+        files = files(3:end);
+        trainingSize = length(files) / 2;
+        
+        trainingFiles = [trainingFiles zeros(trainingSize, 1)];
+        trainingLabels = [trainingLabels zeros(trainingSize, 1)];
+        testingFiles = [testingFiles zeros(length(files) - trainingSize), 1];
+        
+        for j=(x+1):(x+trainingSize)
+            trainingFiles(j) = files(j).name;
+            trainingLabels(j) = classDict(files(i).name);
+        end
+        for j=(x+trainingSize+1):(x+length(files))
+            testingFiles(j) = files(j).name;
+        end
+        
+        x = x + length(files);
+    end
 end
-
-decodedFrames = grayDecodedFrames;
-
-% Create matrix of binary images (motion energy image or bw).
-binaryFrames = createBinary(decodedFrames, height, width, numOfFrames, 0);
-
-% Reset time counter.
-tic;
-mhi = extractMHI_alt(binaryFrames, height, width, numOfFrames);
-% Time spent creating MHI using second method.
-TimeSpent2 = toc;
-% Show the mhi.
-figure, imshow(mhi);
-
-% Histogram of mhi.
-[count, x] = imhist(mhi);
-
-% Classification.
-
-
-
-
-
-
-
-
-
 

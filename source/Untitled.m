@@ -1,5 +1,5 @@
-classdef FeaturesExtractor
-    %FEATURESEXTRACTOR Summary of this class goes here
+classdef Untitled
+    %UNTITLED Summary of this class goes here
     %   Detailed explanation goes here
     
     properties
