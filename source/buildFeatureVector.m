@@ -1,4 +1,4 @@
-function classifyVideo(videoPath)
+function featureVector = buildFeatureVector(videoPath)
 
 % Extract frames from video.
 [decodedFrames, numOfFrames, height, width] = extractFrames(videoPath);
@@ -29,22 +29,12 @@ binaryFrames = createBinary(decodedFrames, height, width, numOfFrames, 1);
 
 % Create mhi using default method.
 tic;
-mhi1 = extractMHI_alt(binaryFrames, height, width, numOfFrames);
+mhi = extractMHI_alt(binaryFrames, height, width, numOfFrames);
 % Time spent creating MHI using first method.
 timeSpentOnMHI = toc;
-% Show the result.
-figure, imshow(mhi1);
 
-% Reset time counter and create mhi using secondary method.
-%{
-tic;
-mhi2 = extractMHI(binaryFrames, height, width, numOfFrames);
-% Time spent creating MHI using second method.
-TimeSpent2 = toc;
-% Show both mhis.
-subplot(1, 2, 1), imshow(mhi1),
-subplot(1, 2, 2), imshow(mhi2);
-%}
+% Construct a feature vector class and return it.
+featureVector = FeatureVector(mhi, FeatureVectorType.MHI);
 
 end
 
