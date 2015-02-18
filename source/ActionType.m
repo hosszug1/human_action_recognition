@@ -1,4 +1,4 @@
-classdef ActionType < uint32
+classdef ActionType < uint8
     %UNTITLED Summary of this function goes here
     %   Detailed explanation goes here
     

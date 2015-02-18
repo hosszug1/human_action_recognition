@@ -1,4 +1,4 @@
-function [allTrainingFiles, allTrainingLabels, allTestingFiles] = partitionData(classesInUse)
+function [allTrainingFiles, allTrainingLabels, allTestingFiles, allTestingLabels] = partitionData(classesInUse)
 %CREATETRAININGDATA Summary of this function goes here
 %   Detailed explanation goes here
 
@@ -8,8 +8,14 @@ INPUT_FOLDER = 'D:\Gabor\Workspace\Third Year Project\human_action_recognition\d
 allTrainingFiles = [];
 allTrainingLabels = [];
 allTestingFiles = [];
+allTestingLabels = [];
 
 for i = 1:length(classesInUse)
+    % Reset sizes of arrays.
+    trainingVideos = [];
+    trainingLabels = [];
+    testingVideos = [];
+    testingLabels = [];
     % Get the videos from each directory (needs to be lowercase).
     videos = dir(strcat(INPUT_FOLDER, lower(classesInUse(i).char)));
     videos = transpose(videos);
@@ -18,18 +24,19 @@ for i = 1:length(classesInUse)
 
     % The size of the training set.
     trainingSize = floor(length(videos) / 2);
+    testingSize = length(videos) - trainingSize;
     
     % Split into training and testing.
     trainingVideos = videos(1:trainingSize);
     trainingLabels(1:trainingSize) = classesInUse(i).int32;
-    trainingSize
-    b = length(trainingLabels)
     testingVideos = videos(trainingSize+1:end);
+    testingLabels(1:testingSize) = classesInUse(i).int32;
     
     % Add them to the global training and testing data sets respectively.
     allTrainingFiles = [allTrainingFiles, trainingVideos];
     allTrainingLabels = [allTrainingLabels, trainingLabels];
     allTestingFiles = [allTestingFiles, testingVideos];
+    allTestingLabels = [allTestingLabels, testingLabels];
     
 end % for
 

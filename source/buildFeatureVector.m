@@ -28,10 +28,10 @@ binaryFrames = createBinary(decodedFrames, height, width, numOfFrames, 1);
 % Create MHI - currently testing 2 methods.
 
 % Create mhi using default method.
-tic;
+% tic;
 mhi = extractMHI_alt(binaryFrames, height, width, numOfFrames);
 % Time spent creating MHI using first method.
-timeSpentOnMHI = toc;
+% timeSpentOnMHI = toc;
 
 % Construct a feature vector class and return it.
 featureVector = FeatureVector(mhi, FeatureVectorType.MHI);
