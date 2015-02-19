@@ -1,3 +1,12 @@
+% Step 1: Read frames from video file.
+% Step 2: Background substraction.
+% Step 3: Feature extraction. 
+    % Step 3-1: Motion History Image (MHI).
+        % Step 3-1-1: Histogram of the MHI.
+        % Step 3-1-2: Haar Wavelet transform of the MHI.
+    % Step 3-2: Combine histogram + haar wavelet features.
+% Step 4: Classification.
+
 function featureVector = buildFeatureVector(videoPath)
 
 % Extract frames from video.
@@ -18,7 +27,7 @@ end
 decodedFrames = grayDecodedFrames;
 
 % Create matrix of binary images (motion energy image or bw).
-binaryFrames = createBinary(decodedFrames, height, width, numOfFrames, 1);
+binaryFrames = createBinary(decodedFrames, height, width, numOfFrames, 0);
 % binaryFrames = createBinary(decodedFrames, height, width, numOfFrames, 1);
 
 % TEST - Display a few frames (usually 5) to check quality of binary
@@ -32,6 +41,13 @@ binaryFrames = createBinary(decodedFrames, height, width, numOfFrames, 1);
 mhi = extractMHI_alt(binaryFrames, height, width, numOfFrames);
 % Time spent creating MHI using first method.
 % timeSpentOnMHI = toc;
+% showFrames(decodedFrames, mhi, 5);
+% figure, imshow(mhi);
+
+% Create histogram of MHI.
+% [histOfMhi, indexes] = imhist(mhi);
+% figure, stem(histOfMhi, counts);
+
 
 % Construct a feature vector class and return it.
 featureVector = FeatureVector(mhi, FeatureVectorType.MHI);

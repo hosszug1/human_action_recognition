@@ -4,8 +4,9 @@ classdef FeatureVectorType < uint8
     
     enumeration
         MHI (1)
-        Combined (2)
-        Corrupted (3)
+        Histogram (2)
+        Combined (3)
+        Corrupted (4)
     end
     
 end

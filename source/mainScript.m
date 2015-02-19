@@ -21,8 +21,10 @@ tic;
 testingData = createFeatureData(testingFiles);
 timeSpentTesting = toc;
 
+error('Stop');
+
 % Classify testing data.
-predictedLabels = classify(testingData, trainingData, trainingLabels, 0);
+predictedLabels = classify(testingData, trainingData, trainingLabels, ClassifierType.KNN);
 
 % Calculate accuracy of the process.
 accuracy = 0;
@@ -36,8 +38,4 @@ accuracy = (accuracy / testingLabels) * 100;
 
 % Print out accuracy of the classifier.
 fprintf('*** Total accuracy: %f ***\n', accuracy);
-
-
-
-
 

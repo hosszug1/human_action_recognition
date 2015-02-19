@@ -13,6 +13,9 @@ for i=1:length(testingData)
         case (FeatureVectorType.MHI)
             predictedLabels = classifyMHI(testingData, trainingData, trainingLabels, classifMethod);
             break;
+        case (FeatureVectorType.Histogram)
+            predictedLabels = classifyHist(testingData, trainingData, trainingLabels, classifMethod);
+            break;
         case (FeatureVectorType.Combined)
             break;
         case (FeatureVectorType.Corrupted)
@@ -28,24 +31,53 @@ end
 end
 
 function pLabels = classifyMHI(testingD, trainingD, trainingL, classifM)
-    pLabels = zeros(1:length(testingD));
-    switch(classifM)
-        case (ClassifierType.KNN)
-            % KNN
-            testingMHI = zeros(length(testingD), constants.Height, constants.Width);
-            for i=1:length(testingD)
-                testingMHI(i) = testingD.data;
-            end
-            idx = knnsearch(trainingD, testingD);
-            for i=1:length()
-                
-                
-        case (ClassifierType.SVN)
-            % SVN
-        otherwise
-            % If it's neither of the above, something horrible must have
-            % happened.
-            throwException('classifyMHI', 'ClassifierType not recognised');
-    end
+pLabels = zeros(1, length(testingD));
+switch(classifM)
+    case (ClassifierType.KNN)
+        % KNN
+        % testingMHIs = zeros((Constants.height * Constants.width), length(testingD));
+        % trainingMHIs = zeros((Constants.height * Constants.width), length(trainingD));
+        
+        testingMHIs = zeros(length(testingD), (Constants.height * Constants.width));
+        trainingMHIs = zeros(length(trainingD), (Constants.height * Constants.width));
+        
+        %{
+        for i=1:length(testingD)
+            testingMHIs(:, i) = testingD(i).data(:);
+        end
+        
+        for i=1:length(trainingD)
+            trainingMHIs(:, i) = trainingD(i).data(:);
+        end
+        %}
+        
+        for i=1:length(testingD)
+            testingMHIs(i, :) = testingD(i).data(:);
+        end
+        
+        for i=1:length(trainingD)
+            trainingMHIs(i, :) = trainingD(i).data(:);
+        end
+        
+        idx = knnsearch(trainingMHIs, testingMHIs);
+        
+        if (length(idx) == length(testingD))
+            fprintf('IDX length is same as testingD length.\n');
+        else
+            fprintf('IDX is not even the same length as testingD...\n');
+        end
+        
+        for i=1:length(pLabels)
+            pLabels(i) = trainingL(idx(i));
+        end
+
+    case (ClassifierType.SVN)
+        % SVN
+    otherwise
+        % If it's neither of the above, something horrible must have
+        % happened.
+        throwException('classifyMHI', 'ClassifierType not recognised');
+end
+
 end
 
