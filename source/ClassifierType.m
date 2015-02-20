@@ -4,7 +4,7 @@ classdef ClassifierType < uint8
     
     enumeration
         KNN (1)
-        SVN (2)
+        SVM (2)
     end
     
 end

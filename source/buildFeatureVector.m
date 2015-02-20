@@ -7,7 +7,7 @@
     % Step 3-2: Combine histogram + haar wavelet features.
 % Step 4: Classification.
 
-function featureVector = buildFeatureVector(videoPath)
+function featureVector = buildFeatureVector(videoPath, featureType)
 
 % Extract frames from video.
 [decodedFrames, numOfFrames, height, width] = extractFrames(videoPath);
@@ -27,7 +27,7 @@ end
 decodedFrames = grayDecodedFrames;
 
 % Create matrix of binary images (motion energy image or bw).
-binaryFrames = createBinary(decodedFrames, height, width, numOfFrames, 0);
+binaryFrames = createBinary(decodedFrames, height, width, numOfFrames, 1);
 % binaryFrames = createBinary(decodedFrames, height, width, numOfFrames, 1);
 
 % TEST - Display a few frames (usually 5) to check quality of binary
@@ -45,12 +45,20 @@ mhi = extractMHI_alt(binaryFrames, height, width, numOfFrames);
 % figure, imshow(mhi);
 
 % Create histogram of MHI.
-% [histOfMhi, indexes] = imhist(mhi);
+[histOfMhi, indexes] = imhist(mhi);
 % figure, stem(histOfMhi, counts);
 
-
 % Construct a feature vector class and return it.
-featureVector = FeatureVector(mhi, FeatureVectorType.MHI);
+switch featureType
+    case FeatureVectorType.MHI
+        featureVector = FeatureVector(mhi, FeatureVectorType.MHI);
+    case FeatureVectorType.Histogram
+        featureVector = FeatureVector(histOfMhi, FeatureVectorType.Histogram);
+    case FeatureVectorType.Combined
+        
+    otherwise
+        
+end
 
 end
 

@@ -1,4 +1,4 @@
-function data = createFeatureData(files)
+function data = createFeatureData(files, featureType)
 %CREATETRAININGDATA Summary of this function goes here
 %   Detailed explanation goes here
 
@@ -13,7 +13,7 @@ for i=1:numOfVideos
     % Get the feature vector for current video.
     % trainingFiles(i).name
     try
-        featureVector = buildFeatureVector(files(i).name);
+        featureVector = buildFeatureVector(files(i).name, featureType);
     catch err
         if (strcmp(err.identifier, 'MATLAB:audiovideo:VideoReader:UnknownCodec'))
             fprintf('Could not decode file: %s\n', files(i).name);

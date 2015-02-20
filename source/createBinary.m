@@ -2,7 +2,7 @@ function binaryFrames = createBinary(decodedFrames, height, width, numOfFrames, 
 
 if (method == 0)
     binaryFrames = simpleTresholding(decodedFrames, height, width, numOfFrames);
-else
+elseif (method == 1)
     binaryFrames = frameSubtraction(decodedFrames, height, width, numOfFrames);
 end
 

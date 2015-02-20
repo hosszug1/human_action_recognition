@@ -1,5 +1,5 @@
 % Classify testing data.
-predictedLabels = classify(testingData, trainingData, trainingLabels, ClassifierType.KNN);
+predictedLabels = classify(testingData, testingLabels, trainingData, trainingLabels, classifMethod);
 
 % Calculate accuracy of the process.
 accuracy = 0;

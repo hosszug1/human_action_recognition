@@ -3,6 +3,10 @@
 clear all;
 close all;
 
+%%% Global parameters for the script.
+featureMethod = FeatureVectorType.MHI;
+classifMethod = ClassifierType.KNN;
+
 % Define the desired action classes to be used.
 classesInUse = [ActionType.Boxing
     ActionType.Handclapping
@@ -13,18 +17,18 @@ classesInUse = [ActionType.Boxing
 
 tic;
 % Create the training data.
-trainingData = createFeatureData(trainingFiles);
+trainingData = createFeatureData(trainingFiles, featureMethod);
 timeSpentTraining = toc;
 
 tic;
 % Create testing data.
-testingData = createFeatureData(testingFiles);
+testingData = createFeatureData(testingFiles, featureMethod);
 timeSpentTesting = toc;
 
-error('Stop');
+% error('Stop');
 
 % Classify testing data.
-predictedLabels = classify(testingData, trainingData, trainingLabels, ClassifierType.KNN);
+predictedLabels = classify(testingData, testingLabels, trainingData, trainingLabels, classifMethod);
 
 % Calculate accuracy of the process.
 accuracy = 0;
@@ -34,7 +38,7 @@ for i=1:length(testingLabels)
     end
 end
 
-accuracy = (accuracy / testingLabels) * 100;
+accuracy = (accuracy / length(testingLabels)) * 100;
 
 % Print out accuracy of the classifier.
 fprintf('*** Total accuracy: %f ***\n', accuracy);
