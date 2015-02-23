@@ -20,6 +20,8 @@ tic;
 trainingData = createFeatureData(trainingFiles, featureMethod);
 timeSpentTraining = toc;
 
+% Train classification method (SVM or KNN).
+
 tic;
 % Create testing data.
 testingData = createFeatureData(testingFiles, featureMethod);
@@ -28,7 +30,7 @@ timeSpentTesting = toc;
 % error('Stop');
 
 % Classify testing data.
-predictedLabels = classify(testingData, testingLabels, trainingData, trainingLabels, classifMethod);
+predictedLabels = classify(testingData, testingLabels, trainingData, trainingLabels, classifMethod, classesInUse);
 
 % Calculate accuracy of the process.
 accuracy = 0;
@@ -39,6 +41,7 @@ for i=1:length(testingLabels)
 end
 
 accuracy = (accuracy / length(testingLabels)) * 100;
+% accuracy = checkAccuracy(accuracy);
 
 % Print out accuracy of the classifier.
 fprintf('*** Total accuracy: %f ***\n', accuracy);

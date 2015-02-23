@@ -48,6 +48,12 @@ mhi = extractMHI_alt(binaryFrames, height, width, numOfFrames);
 [histOfMhi, indexes] = imhist(mhi);
 % figure, stem(histOfMhi, counts);
 
+% Discard the first value as it represents the number of "0" valued pixels
+% and we do not care about this as it does not contain motion information.
+histOfMhi = histOfMhi(2:end);
+indexes = indexes(2:end);
+% figure, stem(indexes, histOfMhi);
+
 % Construct a feature vector class and return it.
 switch featureType
     case FeatureVectorType.MHI

@@ -5,6 +5,7 @@ classdef Constants
     properties (Constant)
         height = 120;
         width = 160;
+        decayParameter = 15;
     end
     
     methods
