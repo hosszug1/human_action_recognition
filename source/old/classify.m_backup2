@@ -1,4 +1,4 @@
-function [predictedLabels, model] = classify(testingData, testingLabels, trainingData, trainingLabels, classifMethod, classesInUse)
+function predictedLabels = classify(testingData, testingLabels, trainingData, trainingLabels, classifMethod, classesInUse)
 %CLASSIFY 
 
 % Assume that every feature vector is the same size, was created the same
@@ -88,8 +88,6 @@ switch classifM
             binaryTestingL = changem(binaryTestingL, 1, newSVM.classInUse);
             
             model = svmtrain(binaryTrainingL, trainingF);
-            % Save the model as well.
-            newSVM.model = model;
                         
             [newSVM.pLabels, newSVM.accuracy, ~] = svmpredict(binaryTestingL, testingF, model);
             % newSVM.pLabels

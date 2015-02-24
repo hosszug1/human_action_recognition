@@ -1,4 +1,4 @@
-function [predictedLabels, model] = classify(testingData, testingLabels, trainingData, trainingLabels, classifMethod, classesInUse)
+function model = createClassifierModel(trainingData, trainingLabels, classifMethod)
 %CLASSIFY 
 
 % Assume that every feature vector is the same size, was created the same
@@ -48,21 +48,7 @@ pLabels = zeros(1, length(testingL));
 switch classifM
     case ClassifierType.KNN
         % KNN
-        
-        idx = knnsearch(trainingF, testingF, 'K', 2);
-        
-        %{
-        if (length(idx) == length(testingF))
-            fprintf('IDX length is same as testingD length.\n');
-        else
-            fprintf('IDX is not even the same length as testingD...\n');
-        end
-        %}
-        
-        for i=1:length(pLabels)
-            pLabels(i) = trainingL(mode(idx(i, :)));
-        end
-
+        model = trainingF;
     case ClassifierType.SVM
         %%%%%%%%%%%%%%%%%%%%% SVM %%%%%%%%%%%%%%%%%%%%%%%%%%%%
         % Need to create as many SVMs as the number of classes we have.
@@ -88,8 +74,6 @@ switch classifM
             binaryTestingL = changem(binaryTestingL, 1, newSVM.classInUse);
             
             model = svmtrain(binaryTrainingL, trainingF);
-            % Save the model as well.
-            newSVM.model = model;
                         
             [newSVM.pLabels, newSVM.accuracy, ~] = svmpredict(binaryTestingL, testingF, model);
             % newSVM.pLabels

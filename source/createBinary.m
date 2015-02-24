@@ -28,7 +28,8 @@ frames = zeros(h, w, n);
 
 for i = 2:n
     currentFrame = abs(decFrames(:, :, i) - decFrames(:, :, i-1));
-    level = graythresh(currentFrame);
+    % level = graythresh(currentFrame);
+    level = Constants.binaryThreshold;
     bwImage = im2bw(currentFrame, level);
     % bwImage = ~bwImage;
     frames(:, :, i) = bwImage(:, :);

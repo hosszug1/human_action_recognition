@@ -5,7 +5,8 @@ classdef Constants
     properties (Constant)
         height = 120;
         width = 160;
-        decayParameter = 15;
+        decayParameter = 1;
+        binaryThreshold = 0.2;
     end
     
     methods

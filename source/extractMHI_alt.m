@@ -22,7 +22,7 @@ for x = 1:height
     end
 end
 
-
+    
 end
 
 
@@ -30,7 +30,7 @@ end
 %%% Use something else instead, but same principle, return 1 or 0.
 function hValue = calculateH_alt(x, y, t, binaryFrames, tau, delta)
 
-if (tau <= 10)
+if (tau <= delta)
     hValue = 0;
 elseif (binaryFrames(x, y, t) == 1)
     hValue = tau;

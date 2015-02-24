@@ -7,6 +7,7 @@ classdef SVMClassifier
         classInUse;
         accuracy = 0;
         pLabels;
+        model;
     end
     
     methods

@@ -21,6 +21,7 @@ trainingData = createFeatureData(trainingFiles, featureMethod);
 timeSpentTraining = toc;
 
 % Train classification method (SVM or KNN).
+% model = createClassifierModel(trainingData, trainingLabels, classifMethod);
 
 tic;
 % Create testing data.

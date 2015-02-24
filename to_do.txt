@@ -1,0 +1,6 @@
+TO-DO FOR PROJECT:
+
+1) Don't forget to remove from data that boxing_d4 example that doesn't decode.
+2) 2D Haar Wavelength transform
+3) SVM train done separarely from test.
+4)
