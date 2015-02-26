@@ -8,3 +8,4 @@ elseif (strcmp(testOrTrain, 'testing'))
     save(Constants.testingDataFileName, getVariableName(data));
 end
 
+end

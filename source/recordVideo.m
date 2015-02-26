@@ -1,27 +1,25 @@
-function [ output_args ] = recordVideo( input_args )
+function videoName = recordVideo(vid, videoName)
 %RECORDVIDEO Summary of this function goes here
 %   Detailed explanation goes here
 
-%warning('off','all'); %.... diable warining msg ...;
-vid = videoinput('winvideo', 1, 'YUY2_320x240');
 set(vid, 'FramesPerTrigger', Inf);
 set(vid, 'ReturnedColorspace', 'rgb');
-% vid.FrameRate =30;
-vid.FrameGrabInterval = 1;  % distance between captured frames 
+vid.FrameGrabInterval = 1;
 start(vid)
 
-aviObject = avifile('myVideo.avi');   % Create a new AVI file
-for iFrame = 1:100                    % Capture 100 frames
-  % ...
-  % You would capture a single image I from your webcam here
-  % ...
+writerObj = VideoWriter(videoName);
+writerObj.FrameRate = 25;
+writerObj.open();
 
-  I=getsnapshot(vid);z
-%imshow(I);
-  F = im2frame(I);                    % Convert I to a movie frame
-  aviObject = addframe(aviObject,F);  % Add the frame to the AVI file
+for iFrame = 1:360                    
+
+  I = getsnapshot(vid);
+  I = imresize(I, 0.25);
+  F = im2frame(I);                     
+  writeVideo(writerObj, F);
 end
-aviObject = close(aviObject);         % Close the AVI file
+
+writerObj.close();
 stop(vid);
 
 end

@@ -1,4 +1,4 @@
-function [svmArray, pLabels] = predictSVM(svmArray, testingData, testingL)
+function [svmArray, pLabels] = predictSVM(svmArray, testingData, testingL, classesInUse)
 %CLASSIFY 
 
 % This will return the data in a 'universally standard' format we keep
@@ -14,14 +14,15 @@ testingL = transpose(testingL);
 
 for i=1:length(svmArray)
 
-    currentSVM = svmArray(i);
+    % svmArray(i) = svmArray(i);
+    classesNotUsed = setdiff(classesInUse, svmArray(i).classInUse);
     
     binaryTestingL = changem(testingL, [-1 -1], classesNotUsed);
-    binaryTestingL = changem(binaryTestingL, 1, currentSVM.classInUse);
+    binaryTestingL = changem(binaryTestingL, 1, svmArray(i).classInUse);
 
-    [currentSVM.pLabels, currentSVM.accuracy, ~] = svmpredict(binaryTestingL, testingF, currentSVM.model);
+    [svmArray(i).pLabels, svmArray(i).accuracy, ~] = svmpredict(binaryTestingL, testingF, svmArray(i).model);
     % newSVM.pLabels
-    fprintf('The accuracy of SVM number %d is: %f\n', currentSVM.id, currentSVM.accuracy);
+    fprintf('The accuracy of SVM number %d is: %f\n', svmArray(i).id, svmArray(i).accuracy);
 
 end
 
@@ -36,6 +37,7 @@ for i=1:length(pLabels)
     % and we stop looking at the others.
     matchFound = 0;
     for j=1:length(svmArray)
+        % fprintf('pLabels: %d', length(svmArray(j).pLabels));
         if (svmArray(j).pLabels(i) == 1)
             label = svmArray(j).classInUse;
             matchFound = 1;
@@ -47,7 +49,7 @@ for i=1:length(pLabels)
 
     pLabels(i) = label;
     if (matchFound == 0)
-        fprintf('No hit has been found for the data, this is VERY VERY BAD!\n');
+        % fprintf('No hit has been found for the data, this is VERY VERY BAD!\n');
     end
 end
 

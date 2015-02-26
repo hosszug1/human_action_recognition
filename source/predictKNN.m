@@ -1,14 +1,14 @@
-function pLabels = predictKNN(KNNmodel, testingF, testingL)
+function pLabels = predictKNN(KNNmodel, testingF)
 %CLASSIFYKNN Summary of this function goes here
 %   Detailed explanation goes here
 
 trainingL = KNNmodel.trainingLabels;
 trainingF = KNNmodel.trainingFeatures;
 
+pLabels = zeros(1, length(testingF));
+
 trainingF = standardiseData(trainingF);
 testingF = standardiseData(testingF);
-
-pLabels = zeros(1, length(testingL));
 
 idx = knnsearch(trainingF, testingF, 'K', 1);
 

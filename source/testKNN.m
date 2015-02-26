@@ -1,12 +1,12 @@
 % Create testing data for KNN.
-if (loadData == 1)
+if (loadFromFile == 1)
     testingData = loadData('testing');
 else
     testingData = createFeatureData(testingFiles);
     saveData(testingData, 'testing');
 end
 
-predictedLabels = predictKNN(modelKNN, testingData, testingLabels);
+predictedLabels = predictKNN(modelKNN, testingData);
 
 % Calculate accuracy of the process.
 accuracy = 0;

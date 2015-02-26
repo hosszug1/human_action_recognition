@@ -3,8 +3,14 @@ function data = loadData(testOrTrain)
 %   Detailed explanation goes here
 
 if (strcmp(testOrTrain, 'training'))
-    data = load(Constants.trainingDataFileName).data;
+    data = load(Constants.trainingDataFileName);
+    data = data.data;
 elseif (strcmp(testOrTrain, 'testing'))
-    data = load(Constants.testingDataFileName).data;
+    data = load(Constants.testingDataFileName);
+    data = data.data;
+else
+    % Throw exception.
+end
+
 end
 

@@ -6,7 +6,7 @@ classdef KNNClassifier
         % id;
         accuracy = 0;
         trainingLabels;
-        trainingFeatures
+        trainingFeatures;
     end
     
     methods

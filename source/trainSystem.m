@@ -9,11 +9,11 @@ close all;
 global trainingData testingData;
 global trainingLabels testingLabels;
 global featureMethod classifMethod;
-global loadData;
+global loadFromFile;
 
 featureMethod = FeatureVectorType.MHI;
 classifMethod = ClassifierType.KNN;
-loadData = 1;
+loadFromFile = 1;
 
 % Define the desired action classes to be used.
 classesInUse = [ActionType.Boxing
@@ -24,7 +24,7 @@ classesInUse = [ActionType.Boxing
 [trainingFiles, trainingLabels, testingFiles, testingLabels] = partitionData(classesInUse);
 
 % Create the training data or load it.
-if (loadData == 1)
+if (loadFromFile == 1)
     trainingData = loadData('training');
 else
     trainingData = createFeatureData(trainingFiles);
@@ -41,7 +41,7 @@ switch classifMethod
         svmArray = createSVM(trainingData, trainingLabels, classesInUse);
         
         % Create testing data so we can tune the SVM (or load it).
-        if (loadData == 1)
+        if (loadFromFile == 1)
             testingData = loadData('testing');
         else
             testingData = createFeatureData(testingFiles);

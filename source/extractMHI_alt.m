@@ -32,7 +32,7 @@ function hValue = calculateH_alt(x, y, t, binaryFrames, tau, delta)
 
 if (tau <= delta)
     hValue = 0;
-elseif (binaryFrames(x, y, t) == 1)
+elseif (t <= 1 || binaryFrames(x, y, t) == 1)
     hValue = tau;
 else
     hValue = calculateH_alt(x, y, t-1, binaryFrames, tau - delta, delta);
