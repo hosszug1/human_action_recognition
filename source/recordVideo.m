@@ -11,7 +11,7 @@ writerObj = VideoWriter(videoName);
 writerObj.FrameRate = 25;
 writerObj.open();
 
-for iFrame = 1:360                    
+for iFrame = 1:180                    
 
   I = getsnapshot(vid);
   I = imresize(I, 0.25);

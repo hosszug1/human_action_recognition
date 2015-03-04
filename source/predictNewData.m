@@ -1,9 +1,9 @@
-function predictNewData(newInputName, classifMethod, model)
+function prediction = predictNewData(newInputName, classifMethod, model)
 %PREDICTNEWDATA Summary of this function goes here
 %   Detailed explanation goes here
 % Get the features from the video.
 
-global featureMethod;
+global featureMethod classesInUse;
 
 videoFeatureVector = buildFeatureVector(newInputName, featureMethod);
 figure, imshow(videoFeatureVector.data);
@@ -18,7 +18,7 @@ switch classifMethod
         prediction = 0;
 end
 
-fprintf('The prediction is: %d\n', prediction);
+% fprintf('The prediction is: %s\n', classesInUse(prediction).char);
 
 end
 
