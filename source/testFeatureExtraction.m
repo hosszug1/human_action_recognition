@@ -10,7 +10,7 @@ tic;
 featureMethod = FeatureVectorType.MHI;
 % classifMethod = ClassifierType.KNN;
 
-INPUT_FILE = 'human_action_recognition\data\handwaving\person02_handwaving_d4_uncomp.avi';
+INPUT_FILE = 'human_action_recognition\data\handwaving\person04_handwaving_d1_uncomp.avi';
 
 featureVector = buildFeatureVector(INPUT_FILE, featureMethod);
 
@@ -18,3 +18,5 @@ featureData = featureVector.data;
 featureType = featureVector.type.char;
 
 timeSpent = toc
+
+figure, imshow(featureData);

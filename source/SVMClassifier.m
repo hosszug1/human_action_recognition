@@ -8,6 +8,7 @@ classdef SVMClassifier
         accuracy = 0;
         pLabels;
         model;
+        probEstimates;
     end
     
     methods

@@ -23,8 +23,8 @@ for i = 1:length(classesInUse)
     videos = videos(3:end);
 
     % The size of the training set.
-    trainingSize = floor(length(videos) / 2);
-    testingSize = length(videos) - trainingSize;
+    testingSize = floor(length(videos) / 2);
+    trainingSize = length(videos) - testingSize;
     
     % Split into training and testing.
     trainingVideos = videos(1:trainingSize);

@@ -11,15 +11,16 @@ switch classifMethod
         error('asd');
 end
 
+% Set the frame memory limit.
 imaqmem(imaqmem('FrameMemoryLimit') * 10);
 
 % Name of the video input file.
-newInputName = 'D:\Gabor\Workspace\Third Year Project\new_video.avi';
+newInputName = 'D:\Gabor\Workspace\Third Year Project\human_action_recognition\new_video.avi';
 
 figure('Name', 'My Custom Preview Window'); 
 closeButton = uicontrol('Position', [20 20 40 20], 'String', 'Close', 'Callback', 'close(gcf)');
 startButton = uicontrol('Position', [60 20 40 20], 'String', 'Start', 'Callback', 'recordVideo(webcamVideo, newInputName)');
-predictButton  = uicontrol('Position', [100 20 40 20], 'String', 'Predict', 'Callback', 'predictNewData(newInputName, classifMethod, model)');
+predictButton  = uicontrol('Position', [100 20 40 20], 'String', 'Predict', 'Callback', 'predictNewData(newInputName, classifMethod, model, classesInUse)');
 
 webcamVideo = videoinput('winvideo', 2, 'YUY2_640x480');
 webcamVideo.TriggerRepeat = 2;

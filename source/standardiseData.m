@@ -7,7 +7,7 @@ global featureMethod;
 % Try to find the first feature vector that's not corrupted, loop until one
 % is found, break if one is found.
 switch featureMethod
-    case FeatureVectorType.MHI
+    case {FeatureVectorType.MHI, FeatureVectorType.ConvMHI}
         standardisedFeatures = zeros(length(dataSet), (Constants.height * Constants.width));
     case FeatureVectorType.Histogram
         standardisedFeatures = zeros(length(dataSet), 255);

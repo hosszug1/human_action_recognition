@@ -12,20 +12,26 @@ pLabels = zeros(1, length(testingL));
 % Necessary formatting.
 testingL = transpose(testingL);
 
+pr = zeros(length(testingL), length(svmArray));
 for i=1:length(svmArray)
 
     % svmArray(i) = svmArray(i);
-    classesNotUsed = setdiff(classesInUse, svmArray(i).classInUse);
+    % classesNotUsed = setdiff(classesInUse, svmArray(i).classInUse);
     
-    binaryTestingL = changem(testingL, [-1 -1], classesNotUsed);
-    binaryTestingL = changem(binaryTestingL, 1, svmArray(i).classInUse);
+    % binaryTestingL = changem(testingL, [-1 -1], classesNotUsed);
+    % binaryTestingL = changem(binaryTestingL, 1, svmArray(i).classInUse);
+    model = svmArray(i).model;
 
-    [svmArray(i).pLabels, svmArray(i).accuracy, ~] = svmpredict(binaryTestingL, testingF, svmArray(i).model);
+    [svmArray(i).pLabels, svmArray(i).accuracy, p] = svmpredict(double(testingL==svmArray(i).classInUse), testingF, model, '-b 1');
     % newSVM.pLabels
+    pr(:, i) = p(:, model.Label==1);
     fprintf('The accuracy of SVM number %d is: %f\n', svmArray(i).id, svmArray(i).accuracy);
 
 end
 
+[~, pLabels] = max(pr, [], 2);
+
+%{
 % Sort the SVM array according to accuracies.
 [~, idx] = sort([svmArray.accuracy]);
 svmArray = svmArray(idx);
@@ -52,6 +58,7 @@ for i=1:length(pLabels)
         % fprintf('No hit has been found for the data, this is VERY VERY BAD!\n');
     end
 end
+%}
 
 end
 
