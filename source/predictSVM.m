@@ -25,7 +25,7 @@ for i=1:length(svmArray)
     [svmArray(i).pLabels, svmArray(i).accuracy, p] = svmpredict(double(testingL==svmArray(i).classInUse), testingF, model, '-b 1');
     % newSVM.pLabels
     pr(:, i) = p(:, model.Label==1);
-    fprintf('The accuracy of SVM number %d is: %f\n', svmArray(i).id, svmArray(i).accuracy);
+    % fprintf('The accuracy of SVM number %d is: %f\n', svmArray(i).id, svmArray(i).accuracy);
 
 end
 

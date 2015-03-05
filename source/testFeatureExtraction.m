@@ -6,11 +6,13 @@ clear all;
 close all;
 
 tic;
+
+global featureMethod;
 %%% Global parameters for the script.
-featureMethod = FeatureVectorType.MHI;
+featureMethod = FeatureVectorType.ConvMHI;
 % classifMethod = ClassifierType.KNN;
 
-INPUT_FILE = 'human_action_recognition\data\handwaving\person04_handwaving_d1_uncomp.avi';
+INPUT_FILE = 'human_action_recognition\data\boxing\person12_boxing_d1_uncomp.avi';
 
 featureVector = buildFeatureVector(INPUT_FILE, featureMethod);
 

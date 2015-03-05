@@ -50,6 +50,10 @@ mhi = extractMHI_alt(binaryFrames, height, width, numOfFrames);
 switch featureType
     case FeatureVectorType.MHI
         featureVector = FeatureVector(mhi, FeatureVectorType.MHI);
+    case FeatureVectorType.MEI
+        % Create MEI from MHI.
+        mei = im2bw(mhi, 0);
+        featureVector = FeatureVector(mei, FeatureVectorType.MEI);
     case FeatureVectorType.Histogram
         % Create histogram of MHI.
         [histOfMhi, indexes] = imhist(mhi);
@@ -69,9 +73,24 @@ switch featureType
         edgeStrengthImage = sqrt(verticalEdgeImage.^2 + horizontalEdgeImage.^2);
         % figure, imshow(edgeStrengthImage);
         
+        % Eliminate insignificant parts of the image.
+        % resultImage = 
+        
         featureVector = FeatureVector(edgeStrengthImage, FeatureVectorType.ConvMHI);
     case FeatureVectorType.Combined
+        % Create MEI from MHI.
+        mei = im2bw(mhi, 0);
+        % Create histogram of MHI.
+        [histOfMhi, indexes] = imhist(mhi);
+        % figure, stem(histOfMhi, counts);
+        % Discard the first value as it represents the number of "0" valued pixels
+        % and we do not care about this as it does not contain motion information.
+        histOfMhi = histOfMhi(2:end);
+        indexes = indexes(2:end);
+        % figure, stem(indexes, histOfMhi);
+        combined = {mei, histOfMhi};
         
+        featureVector = FeatureVector(combined, FeatureVectorType.Combined);        
     otherwise
         
 end

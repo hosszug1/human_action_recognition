@@ -4,14 +4,14 @@ function videoName = recordVideo(vid, videoName)
 
 set(vid, 'FramesPerTrigger', Inf);
 set(vid, 'ReturnedColorspace', 'rgb');
-vid.FrameGrabInterval = 1;
+% vid.FrameGrabInterval = 1;
 start(vid)
 
 writerObj = VideoWriter(videoName);
 writerObj.FrameRate = 25;
 writerObj.open();
 
-for iFrame = 1:180                    
+for iFrame = 1:200                    
 
   I = getsnapshot(vid);
   I = imresize(I, 0.25);
@@ -22,5 +22,6 @@ end
 writerObj.close();
 stop(vid);
 
-end
+% predictNewData(videoName, classifMethod, model, classesInUse);
 
+end

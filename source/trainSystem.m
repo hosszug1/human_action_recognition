@@ -6,6 +6,8 @@ close all;
 % Global variables
 % global trainingFiles testingFiles;
 
+tic;
+
 global trainingData testingData;
 global trainingLabels testingLabels;
 global featureMethod classifMethod;
@@ -31,6 +33,9 @@ else
     % Save data so we don't have to retrain the system every time.
     saveData(trainingData, 'training');
 end
+
+timeSpentTraining = toc
+tic
 
 % Train classification method (SVM or KNN).
 switch classifMethod
@@ -73,5 +78,5 @@ switch classifMethod
         fprintf('YABAI!');
 end
 
-
+timeSpentTesting = toc
 

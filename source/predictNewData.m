@@ -6,7 +6,7 @@ function predictNewData(newInputName, classifMethod, model, classesInUse)
 global featureMethod;
 
 videoFeatureVector = buildFeatureVector(newInputName, featureMethod);
-figure, imshow(videoFeatureVector.data);
+% figure, imshow(videoFeatureVector.data);
 
 switch classifMethod
     case ClassifierType.KNN
@@ -16,7 +16,7 @@ switch classifMethod
         pr = zeros(1, length(classesInUse));
         for i=1:length(classesInUse)
             currentModel = model(i).model;
-            [~, ~, p] = svmpredict(1, testingF, currentModel, '-b 1');
+            [~, ~, p] = svmpredict(1, testingF, currentModel, '-b 1 -q');
             pr(:, i) = p(:, currentModel.Label==1);
         end
 
@@ -24,7 +24,7 @@ switch classifMethod
     otherwise
         % Very bad.
 end
-prediction
+% prediction
 fprintf('The prediction is: %s\n', classesInUse(prediction).char);
 
 end
