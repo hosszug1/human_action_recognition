@@ -2,6 +2,8 @@ function videoName = recordVideo(vid, videoName)
 %RECORDVIDEO Summary of this function goes here
 %   Detailed explanation goes here
 
+fprintf('Starting video recording...\n');
+
 set(vid, 'FramesPerTrigger', Inf);
 set(vid, 'ReturnedColorspace', 'rgb');
 % vid.FrameGrabInterval = 1;
@@ -21,6 +23,8 @@ end
 
 writerObj.close();
 stop(vid);
+
+fprintf('Video recording successful.\n');
 
 % predictNewData(videoName, classifMethod, model, classesInUse);
 

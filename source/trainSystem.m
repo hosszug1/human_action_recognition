@@ -12,6 +12,7 @@ global trainingData testingData;
 global trainingLabels testingLabels;
 global featureMethod classifMethod;
 global loadFromFile;
+% global modelKNN svmArray classesInUse;
 
 featureMethod = FeatureVectorType.ConvMHI;
 classifMethod = ClassifierType.SVM;

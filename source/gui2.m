@@ -22,7 +22,7 @@ function varargout = gui2(varargin)
 
 % Edit the above text to modify the response to help gui2
 
-% Last Modified by GUIDE v2.5 05-Mar-2015 21:57:26
+% Last Modified by GUIDE v2.5 06-Mar-2015 03:49:09
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -110,7 +110,35 @@ function uipanel2_CreateFcn(hObject, eventdata, handles)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    empty - handles not created until after all CreateFcns called
 
-trainSystem;
+
+% --- Executes on button press in pushbutton4.
+function pushbutton4_Callback(hObject, eventdata, handles)
+% hObject    handle to pushbutton4 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Name of the video input file.
+
+global webcamVideo newInputName;
+
+newInputName = 'D:\Gabor\Workspace\Third Year Project\human_action_recognition\new_video.avi';
+recordVideo(webcamVideo, newInputName);
+
+
+% --- Executes on button press in pushbutton5.
+function pushbutton5_Callback(hObject, eventdata, handles)
+% hObject    handle to pushbutton5 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+close(gcf);
+
+% --- Executes on button press in pushbutton6.
+function pushbutton6_Callback(hObject, eventdata, handles)
+% hObject    handle to pushbutton6 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+global classifMethod modelKNN svmArray newInputName classesInUse;
 
 switch classifMethod
     case ClassifierType.KNN
@@ -121,17 +149,32 @@ switch classifMethod
         error('asd');
 end
 
+fprintf('%s', newInputName);
+
+prediction = predictNewData(newInputName, classifMethod, model, classesInUse);
+
+
+% --- Executes during object creation, after setting all properties.
+function axes1_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to axes1 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: place code in OpeningFcn to populate axes1
+% trainSystem;
+
+global webcamVideo;
+
 % Set the frame memory limit.
 imaqmem(imaqmem('FrameMemoryLimit') * 10);
 
-% Name of the video input file.
-newInputName = 'D:\Gabor\Workspace\Third Year Project\human_action_recognition\new_video.avi';
-
-webcamVideo = videoinput('winvideo', 2, 'YUY2_640x480');
-webcamVideo.TriggerRepeat = 2;
+try
+    webcamVideo = videoinput('winvideo', 2, 'YUY2_640x480');
+catch err
+    webcamVideo = videoinput('winvideo', 1, 'YUY2_640x480');
+end
 
 vidRes = webcamVideo.VideoResolution; 
 nBands = webcamVideo.NumberOfBands; 
 hImage = image(zeros(vidRes(2), vidRes(1), nBands));
 preview(webcamVideo, hImage);
-

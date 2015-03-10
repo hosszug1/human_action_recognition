@@ -6,7 +6,7 @@ classdef Constants
         height = 120;
         width = 160;
         decayParameter = 5;
-        binaryThreshold = 0.2;
+        binaryThreshold = 0.20;
         trainingDataFileName = 'human_action_recognition\training_data.mat';
         testingDataFileName = 'human_action_recognition\testing_data.mat';
     end

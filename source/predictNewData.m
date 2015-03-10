@@ -6,7 +6,7 @@ function predictNewData(newInputName, classifMethod, model, classesInUse)
 global featureMethod;
 
 videoFeatureVector = buildFeatureVector(newInputName, featureMethod);
-% figure, imshow(videoFeatureVector.data);
+figure, imshow(videoFeatureVector.data);
 
 switch classifMethod
     case ClassifierType.KNN
@@ -24,8 +24,9 @@ switch classifMethod
     otherwise
         % Very bad.
 end
-% prediction
-fprintf('The prediction is: %s\n', classesInUse(prediction).char);
+
+prediction = classesInUse(prediction);
+fprintf('The prediction is: %s\n', prediction.char);
 
 end
 
