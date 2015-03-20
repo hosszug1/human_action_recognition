@@ -1,4 +1,4 @@
-function resultingMHI = extractMHI_alt(binaryFrames, height, width, numOfFrames)
+function resultingMHI = extractMHI_old(binaryFrames, height, width, numOfFrames)
 %EXTRACTMHI Summary of this function goes here
 %   Detailed explanation goes here
 
@@ -8,7 +8,7 @@ resultingMHI = cast(zeros(height, width), 'uint8');
 % Temporal extent of the movement.
 tau = 255;
 % Decay parameter.
-delta = Constants.decayParameter;
+delta = 15;
 % Treshold for the binerized image.
 % ksi = 0;
 
@@ -18,24 +18,25 @@ for x = 1:height
         % fprintf('y = %d\n', y);
         % Set the recursion limit to the number of frames.
         % set(0, 'RecursionLimit', numOfFrames + 2)
-        resultingMHI(x, y) = calculateH_alt(x, y, numOfFrames, binaryFrames, tau, delta);
+        resultingMHI(x, y) = calculateH(x, y, numOfFrames, binaryFrames, tau, delta);
     end
 end
 
-    
+
 end
 
 
 %%% THE UPDATE FUNCTION %%%
 %%% Use something else instead, but same principle, return 1 or 0.
-function hValue = calculateH_alt(x, y, t, binaryFrames, tau, delta)
+% Motion Energy Image value (binary).
+function hValue = calculateH(x, y, t, binaryFrames, tau, delta)
 
-if (tau <= delta)
+if (t <= 1)
     hValue = 0;
-elseif (t <= 1 || binaryFrames(x, y, t) == 1)
+elseif (binaryFrames(x, y, t) == 1)
     hValue = tau;
 else
-    hValue = calculateH_alt(x, y, t-1, binaryFrames, tau - delta, delta);
+    hValue = max(0, calculateH(x, y, t-1, binaryFrames, tau, delta)-delta);
 end
 
 end

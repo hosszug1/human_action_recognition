@@ -1,6 +1,6 @@
 classdef ActionType < uint8
-    %UNTITLED Summary of this function goes here
-    %   Detailed explanation goes here
+%ACTIONTYPE Enumeration class used to represent the 6 possible
+%   human action types 'recognised' by this system.
     
     enumeration
         Boxing (1)

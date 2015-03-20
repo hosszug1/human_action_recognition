@@ -1,9 +1,12 @@
-function binaryFrames = createBinary(decodedFrames, height, width, numOfFrames, method)
+function binaryFrames = createBinary(decodedFrames, height, width, numOfFrames)
 
-if (method == 0)
-    binaryFrames = simpleTresholding(decodedFrames, height, width, numOfFrames);
-elseif (method == 1)
-    binaryFrames = frameSubtraction(decodedFrames, height, width, numOfFrames);
+switch Constants.motionDetectionMethod
+    case 0
+        binaryFrames = simpleTresholding(decodedFrames, height, width, numOfFrames);
+    case 1
+        binaryFrames = frameSubtraction(decodedFrames, height, width, numOfFrames);
+    otherwise
+        error('Invalid motion detection method selected.');
 end
 
 end
