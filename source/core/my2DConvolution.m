@@ -2,15 +2,12 @@ function convolutedImage = my2DConvolution(inputImage, seKernel, type)
 %MY2DCONVOLUTION A function that performs 2D image convolution on an
 % image.
 %
-%   Author: Gabor Hosszu
+%   IMAGE = my2DConvolution(INPUT, KERNEL, TYPE) returns the convoluted image
 %
-%   The following are the input parameters to the function:
-%
-%   inputImage = the input image desired to be convoluted (Height * Width);
-%   seKernel = kernel used for convolution;
-%   type = can be 'sobel' or anything else
-%
-%
+%       INPUT is the input image desired to be convoluted (Height * Width);
+%       KERNEL is the kernel used for convolution;
+%       TYPE is either 'sobel' or any other string representing whether
+%           a sobel convolution is desired or a normal one
 
 % Get size of structuring element kernel.
 [seHeight, seWidth] = size(seKernel);
@@ -31,14 +28,14 @@ for i = 1:height
     else
         seX1 = i - halfSeHeight;
         topPadding = 0;
-    end
+    end % if
     if (i + halfSeHeight >= height)
         seX2 = height;
         bottomPadding = halfSeHeight - (height - i);
     else
         seX2 = i + halfSeHeight;
         bottomPadding = 0;
-    end
+    end % if
     for j = 1:width
         % Check to make sure we don't go out of the borders of the image.
     % And if we do, calculate by 'how much' - padding value.
@@ -48,14 +45,14 @@ for i = 1:height
         else
             seY1 = j - halfSeWidth;
             leftPadding = 0;
-        end
+        end % if
         if (j + halfSeWidth >= width)
             seY2 = width;
             rightPadding = halfSeWidth - (width - j);
         else
             seY2 = j + halfSeWidth;
             rightPadding = 0;
-        end
+        end % if
         
         % Initialise the padded SE with zeros.
         paddedSE = zeros(seHeight, seWidth);
@@ -73,12 +70,12 @@ for i = 1:height
             b = a / 1;
         else
             b = a / sum(sum(seKernel));
-        end
+        end % if
         
         convolutedImage(i, j) = b;
-    end
-end
+    end % for
+end % for
 
-end
+end % function my2DConvolution
 
 

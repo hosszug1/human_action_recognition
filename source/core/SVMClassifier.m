@@ -1,7 +1,9 @@
 classdef SVMClassifier
-    %SVMCLASSIFIER Summary of this class goes here
-    %   Detailed explanation goes here
-    
+%SVMCLASSIFIER Class that represents a Support Vector Machine (SVM)
+%   classifier.
+%
+%   See also CREATESVM, PREDICTSVM, KNNCLASSIFIER, CREATEKNN, PREDICTKNN.
+
     properties
         id;
         classInUse;
@@ -9,14 +11,14 @@ classdef SVMClassifier
         pLabels;
         model;
         probEstimates;
-    end
+    end % properties
     
     methods
         function this = SVMClassifier(id, classInUse)
             this.id = id;
             this.classInUse = classInUse;
-        end
-    end
+        end % constructor
+    end % methods
     
-end
+end % class SVMClassifier
 

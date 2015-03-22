@@ -5,7 +5,7 @@ classdef ClassifierType < uint8
     enumeration
         KNN (1)
         SVM (2)
-    end
+    end % enumeration
     
-end
+end % class ClassifierType
 

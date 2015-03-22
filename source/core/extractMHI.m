@@ -1,6 +1,15 @@
 function resultingMHI = extractMHI(binaryFrames, height, width, numOfFrames)
-%EXTRACTMHI Summary of this function goes here
-%   Detailed explanation goes here
+%EXTRACTMHI Function used the extract the Motion History Image (MHI) from
+%   a video file (i.e. a matrix of already decoded frames).
+%   
+%   MHI = extractMHI(BF, H, W, N) returns the MHI from the supplied frames.
+%
+%       BF is the H x W x N matrix of frames
+%       H is the height of the frames
+%       W is the width of the frames
+%       N represents the number of frames
+%
+%   See also FEATUREVECTOR, FEATUREVECTORTYPE, EXTRACTFRAMES.
 
 resultingMHI = cast(zeros(height, width), 'uint8');
 
@@ -9,33 +18,28 @@ resultingMHI = cast(zeros(height, width), 'uint8');
 tau = 255;
 % Decay parameter.
 delta = Constants.decayParameter;
-% Treshold for the binerized image.
-% ksi = 0;
 
 for x = 1:height
-    % fprintf('x = %d', x);
     for y = 1:width
         % fprintf('y = %d\n', y);
         % Set the recursion limit to the number of frames.
         % set(0, 'RecursionLimit', numOfFrames + 2)
-        resultingMHI(x, y) = calculateH_alt(x, y, numOfFrames, binaryFrames, tau, delta);
-    end
-end
+        resultingMHI(x, y) = calculateH(x, y, numOfFrames, binaryFrames, tau, delta);
+    end % for
+end % for
 
     
-end
+end % function extractMHI
 
-
-%%% THE UPDATE FUNCTION %%%
-%%% Use something else instead, but same principle, return 1 or 0.
-function hValue = calculateH_alt(x, y, t, binaryFrames, tau, delta)
+% The update function for the MHI.
+function hValue = calculateH(x, y, t, binaryFrames, tau, delta)
 
 if (tau <= delta)
     hValue = 0;
 elseif (t <= 1 || binaryFrames(x, y, t) == 1)
     hValue = tau;
 else
-    hValue = calculateH_alt(x, y, t-1, binaryFrames, tau - delta, delta);
-end
+    hValue = calculateH(x, y, t-1, binaryFrames, tau - delta, delta);
+end % if
 
-end
+end % function calculateH

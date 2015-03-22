@@ -1,4 +1,4 @@
-%%% Training script for automatic human action recognition %%%
+%TRAINSYSTEM Training script for automatic human action recognition %
 
 % Clear workspace and close all windows.
 clear all;

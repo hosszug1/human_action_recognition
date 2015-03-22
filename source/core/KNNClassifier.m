@@ -1,21 +1,23 @@
 classdef KNNClassifier
-    %SVMCLASSIFIER Summary of this class goes here
-    %   Detailed explanation goes here
+%KNNCLASSIFIER Class that represents a K-nearest neighbour (KNN)
+%   classifier.
+%
+%   See also CREATEKNN, PREDICTKNN, SVMCLASSIFIER, CREATESVM, PREDICTSVM.
     
     properties
         % id;
         accuracy = 0;
         trainingLabels;
         trainingFeatures;
-    end
+    end % properties
     
     methods
         function this = KNNClassifier(trainingFeatures, trainingLabels)
             % this.id = id;
             this.trainingLabels = trainingLabels;
             this.trainingFeatures = trainingFeatures;
-        end
-    end
+        end % constructor
+    end % methods
     
-end
+end % class KNNClassifier
 

@@ -1,11 +1,12 @@
 function standardisedFeatures = standardiseData(dataSet)
-%STANDARDISEDATA Summary of this function goes here
-%   Detailed explanation goes here
+%STANDARDISEDATA Function that takes a data set as input and returns
+%   its standardised version to match other function, class formats
+%   used throughout this project.
 
 global featureMethod;
 
-% Try to find the first feature vector that's not corrupted, loop until one
-% is found, break if one is found.
+% Standardise the data based on what feature type we use. The result will
+% always be a linear vector (of different lengths).
 switch featureMethod
     case {FeatureVectorType.MHI, FeatureVectorType.MEI}
         standardisedFeatures = zeros(length(dataSet), (Constants.height * Constants.width));
@@ -22,21 +23,19 @@ switch featureMethod
         % If it's neither of the above, something horrible must have
         % happened.
         throwException('classify', 'FeatureVectorType not recognised');
-end
+end % switch
 
-% size(standardisedFeatures)
-% size(dataSet(1).data(:))
 if (featureMethod == FeatureVectorType.Combined)
     for i=1:length(dataSet)
         mei = dataSet(i).data{1};
         hist = dataSet(i).data{2};
         standardisedFeatures(i, :) = [transpose(mei(:)) transpose(hist(:))];
-    end
+    end % for
 else
     for i=1:length(dataSet)
         standardisedFeatures(i, :) = dataSet(i).data(:);
-    end
-end
+    end % for
+end % if
 
-end
+end % function standardiseData
 

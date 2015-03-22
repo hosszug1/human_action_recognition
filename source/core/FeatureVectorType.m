@@ -1,6 +1,8 @@
 classdef FeatureVectorType < uint8
 %FEATUREVECTORTYPE Enumeration class used to represent the possible
 %   feature types supported by the system.
+%
+%   See also FEATUREVECTOR.
     
     enumeration
         MHI (1)
@@ -9,7 +11,7 @@ classdef FeatureVectorType < uint8
         Histogram (4)
         Combined (5)
         Corrupted (6)
-    end
+    end % enumeration
     
-end
+end % class FeatureVectorType
 

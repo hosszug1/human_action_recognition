@@ -1,6 +1,6 @@
 classdef Constants
-    %CONSTANTS Summary of this class goes here
-    %   Detailed explanation goes here
+%CONSTANTS Class used to represent constants that normally never
+%   change throughout program runtime.
     
     properties (Constant)
         height = 120;
@@ -10,17 +10,7 @@ classdef Constants
         motionDetectionMethod = 1;
         trainingDataFileName = 'human_action_recognition\training_data.mat';
         testingDataFileName = 'human_action_recognition\testing_data.mat';
-    end
+    end % properties
     
-    methods
-        function updateHeight(newHeight)
-            height = newHeight;
-        end
-        
-        function updateWidth(newWidth)
-            width = newWidth;
-        end
-    end
-    
-end
+end % class Constants
 

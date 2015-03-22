@@ -10,7 +10,6 @@ function featureVector = buildFeatureVector(videoPath, featureType)
 %
 %   See also FEATUREVECTOR, FEATUREVECTORTYPE.
 
-
 % Extract frames from video.
 [decodedFrames, numOfFrames, height, width] = extractFrames(videoPath);
 

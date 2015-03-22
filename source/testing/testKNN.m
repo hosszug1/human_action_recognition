@@ -1,5 +1,12 @@
-% Create testing data for KNN.
+%TESTKNN
+%   Create testing data for a KNN classifier and test the accuracy of it.
+%   IMPORTANT! This script can only be used in conjunction with the
+%   'trainSystem' script with specific parameters right now (will be
+%   improved).
+%
+%   See also TRAINSYSTEM, KNNCLASSIFIER, CREATEKNN, PREDICTKNN
 
+% Load the test data from file or create it (and save it for later use).
 if (loadFromFile == 1)
     testingData = loadData('testing');
 else

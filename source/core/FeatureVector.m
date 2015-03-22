@@ -1,17 +1,20 @@
 classdef FeatureVector
-    %FEATUREVECTOR Summary of this class goes here
-    %   Detailed explanation goes here
+%FEATUREVECTOR Class that represents one feature vector for one video
+%   file. It contains the data and its type.
+%
+%   See also FEATUREVECTORTYPE.
     
     properties
         data;
         type;
-    end
+    end % properties
     
     methods
         function this = FeatureVector(data, type)
            this.data = data;
            this.type = type;
-        end
-    end
-end
+        end % constructor
+    end % methods
+    
+end % class FeatureVector
 

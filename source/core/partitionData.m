@@ -1,8 +1,17 @@
 function [allTrainingFiles, allTrainingLabels, allTestingFiles, allTestingLabels] = partitionData(classesInUse)
-%CREATETRAININGDATA Summary of this function goes here
-%   Detailed explanation goes here
+%PARTITIONDATA Function that partitions the data provided into 'convenient'
+%   training and testing groups.
+%
+%   [TRF, TRL, TEF, TEL] = partitionData(CLASSES) will return 2 evenly
+%   split sets of data (TRF - training files, TEF - testing files) and
+%   their respective labels (TRL and TEL). The data is taken from a known
+%   location.
+%
+%       CLASSES is a vector containing the action types desired to be used.
+%
+%   See also ACTIONTYPE.
 
-%%% GLOBAL VARIABLES %%%
+% Location of the data.
 INPUT_FOLDER = 'D:\Gabor\Workspace\Third Year Project\human_action_recognition\data\';
 
 allTrainingFiles = [];

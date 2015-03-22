@@ -1,25 +1,31 @@
-%%% Test script to test how well feature extraction works for just 1 file.
+%TESTFEATUREEXTRACTION 
+%   Script to test feature extraction for just 1 input example.
 
-% Close all figures.
-clear all;
 % Clear workspace.
-% close all;
+clear all;
+% Close all figures.
+close all;
 
 tic;
 
 global featureMethod;
-%%% Global parameters for the script.
-featureMethod = FeatureVectorType.MEI;
-% classifMethod = ClassifierType.KNN;
+featureMethod = FeatureVectorType.ConvMHI;
 
-INPUT_FILE = 'human_action_recognition\new_video.avi';
+% The input example is just an arbitrary video from the dataset.
+INPUT_FILE = 'human_action_recognition\data\handwaving\person06_handwaving_d4_uncomp.avi';
 
 featureVector = buildFeatureVector(INPUT_FILE, featureMethod);
 
 featureData = featureVector.data;
 featureType = featureVector.type.char;
 
+% Save and print the time spent on building the feature vector for the
+% video.
 timeSpent = toc
+
+% Based on what type of features are used, display the data in different
+% ways (e.g. for an image, show a figure of it, for a histogram, plot the
+% data, etc).
 switch featureType
     case FeatureVectorType.MHI
         figure, imshow(featureData);
@@ -46,5 +52,4 @@ switch featureType
         figure, stem(indexes, hist);
     otherwise
         
-end
-figure, imshow(featureData);
+end % switch

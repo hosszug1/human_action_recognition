@@ -9,7 +9,7 @@ classdef ActionType < uint8
         Jogging (4)
         Running (5)
         Walking (6)
-    end
+    end % enumeration
     
-end
+end % class ActionType
 
