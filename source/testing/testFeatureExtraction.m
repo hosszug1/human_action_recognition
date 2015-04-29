@@ -9,15 +9,15 @@ close all;
 tic;
 
 global featureMethod;
-featureMethod = FeatureVectorType.ConvMHI;
+featureMethod = FeatureVectorType.Histogram;
 
 % The input example is just an arbitrary video from the dataset.
-INPUT_FILE = 'human_action_recognition\data\handwaving\person06_handwaving_d4_uncomp.avi';
+INPUT_FILE = 'human_action_recognition\new_video.avi';
 
 featureVector = buildFeatureVector(INPUT_FILE, featureMethod);
 
 featureData = featureVector.data;
-featureType = featureVector.type.char;
+featureType = featureVector.type;
 
 % Save and print the time spent on building the feature vector for the
 % video.

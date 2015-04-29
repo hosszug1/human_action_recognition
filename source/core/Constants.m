@@ -8,8 +8,8 @@ classdef Constants
         decayParameter = 5;
         binaryThreshold = 0.20;
         motionDetectionMethod = 1;
-        trainingDataFileName = 'human_action_recognition\training_data.mat';
-        testingDataFileName = 'human_action_recognition\testing_data.mat';
+        trainingDataFileName = 'training_data.mat';
+        testingDataFileName = 'testing_data.mat';
     end % properties
     
 end % class Constants

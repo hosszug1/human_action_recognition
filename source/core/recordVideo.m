@@ -24,7 +24,7 @@ writerObj.open();
 
 % Get 200 frames from the webcam and resize them to match the resolution
 % of the training data.
-for iFrame = 1:120                    
+for iFrame = 1:200                    
   I = getsnapshot(vid);
   I = imresize(I, 0.25);
   F = im2frame(I);

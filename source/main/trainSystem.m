@@ -13,11 +13,12 @@ global trainingData testingData;
 global trainingLabels testingLabels;
 global featureMethod classifMethod;
 global loadFromFile;
+    
+% Flag to specify if data should be loaded from file or created.
+loadFromFile = 1;
 
 featureMethod = FeatureVectorType.ConvMHI;
 classifMethod = ClassifierType.SVM;
-% Flag to specify if data should be loaded from file or created.
-loadFromFile = 1;
 
 % Define the desired action classes to be used.
 classesInUse = [ActionType.Boxing

@@ -56,4 +56,4 @@ nBands = webcamVideo.NumberOfBands;
 hImage = image(zeros(imHeight, imWidth, nBands));
 % Create the 'preview' window for the webcam.
 preview(webcamVideo, hImage);
-set(hFig, 'Position', [500 200 1000 950]);
+set(hFig, 'Position', [500 200 1000 850]);
